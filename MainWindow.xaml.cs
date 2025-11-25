@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,10 +15,10 @@ namespace Konyvtar
 		public MainWindow()
 		{
 			InitializeComponent();
-			BetoltOlvasok();
+			Betolt();
 		}
 
-		private void BetoltOlvasok()
+		private void Betolt()
 		{
 			if (File.Exists(fajlNev))
 			{
@@ -50,9 +51,10 @@ namespace Konyvtar
 			};
 
 			File.AppendAllText(fajlNev, o + Environment.NewLine);
+
 			olvasok.Add(o);
 			lbOlvasok.Items.Add(o.Nev);
-			tbUzenet.Text = "Regisztráció sikeres.";
+			tbUzenet.Text = "Sikeres mentés.";
 
 			tbNev.Clear();
 			tbEletkor.Clear();
@@ -60,6 +62,23 @@ namespace Konyvtar
 			cbHirlevel.IsChecked = false;
 			cbSms.IsChecked = false;
 			rbNormal.IsChecked = true;
+		}
+
+		private void btnTorol_Click(object sender, RoutedEventArgs e)
+		{
+			if (lbOlvasok.SelectedItem == null)
+				return;
+
+			string nev = lbOlvasok.SelectedItem.ToString();
+			var torlendo = olvasok.FirstOrDefault(x => x.Nev == nev);
+
+			if (torlendo != null)
+			{
+				olvasok.Remove(torlendo);
+				lbOlvasok.Items.Remove(nev);
+				File.WriteAllLines(fajlNev, olvasok.Select(x => x.ToString()));
+				tbUzenet.Text = "Törlés sikeres.";
+			}
 		}
 	}
 }
