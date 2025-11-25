@@ -1,12 +1,56 @@
-﻿<Window x:Class="KonyvtarProgram.MainWindow"
+﻿<Window x:Class="Konyvtar.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KonyvtarProgram"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Olvasó Regisztráció" Height="450" Width="500">
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
 
-    </Grid>
+		<StackPanel Orientation="Horizontal" Margin="0,5">
+			<Label Content="Név:" Width="120"/>
+			<TextBox Name="tbNev" Width="250"/>
+		</StackPanel>
+
+		<StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,5">
+			<Label Content="Életkor:" Width="120"/>
+			<TextBox Name="tbEletkor" Width="50"/>
+		</StackPanel>
+
+		<StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5">
+			<Label Content="Kedvenc műfaj:" Width="120"/>
+			<ComboBox Name="cbMufaj" Width="150">
+				<ComboBoxItem Content="Regény"/>
+				<ComboBoxItem Content="Sci-fi"/>
+				<ComboBoxItem Content="Fantasy"/>
+				<ComboBoxItem Content="Ismeretterjesztő"/>
+				<ComboBoxItem Content="Mese"/>
+			</ComboBox>
+		</StackPanel>
+
+		<StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,5">
+			<CheckBox Name="cbHirlevel" Content="Hírlevél" Margin="0,0,20,0"/>
+			<CheckBox Name="cbSms" Content="SMS értesítés"/>
+		</StackPanel>
+
+		<StackPanel Orientation="Horizontal" Grid.Row="4" Margin="0,5">
+			<Label Content="Tagsági típus:" Width="120"/>
+			<RadioButton Name="rbNormal" Content="Normál" GroupName="Tagsag" IsChecked="True"/>
+			<RadioButton Name="rbDiak" Content="Diák" GroupName="Tagsag" Margin="10,0"/>
+			<RadioButton Name="rbNyugdijas" Content="Nyugdíjas" GroupName="Tagsag" Margin="10,0"/>
+		</StackPanel>
+
+		<Button Grid.Row="5" Name="btnMent" Content="Mentés" Width="100" Height="30" Margin="0,10" Click="btnMent_Click"/>
+
+		<StackPanel Grid.Row="6" Margin="0,10">
+			<TextBlock Name="tbUzenet" Foreground="Green" Margin="0,0,0,10"/>
+			<ListBox Name="lbOlvasok" Height="150"/>
+		</StackPanel>
+	</Grid>
 </Window>
