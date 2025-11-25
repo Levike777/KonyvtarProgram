@@ -15,20 +15,24 @@ namespace Konyvtar
 		public MainWindow()
 		{
 			InitializeComponent();
-			Betoltes();
+			Betolt();
+			ListaFrissit();
 		}
 
-		private void Betoltes()
+		private void Betolt()
 		{
 			if (File.Exists(fajlNev))
 			{
 				foreach (var sor in File.ReadAllLines(fajlNev))
-				{
-					var o = Olvaso.FromString(sor);
-					olvasok.Add(o);
-					lbOlvasok.Items.Add(o.Nev);
-				}
+					olvasok.Add(Olvaso.FromString(sor));
 			}
+		}
+
+		private void ListaFrissit()
+		{
+			lbOlvasok.Items.Clear();
+			foreach (var o in olvasok)
+				lbOlvasok.Items.Add(o.Nev);
 		}
 
 		private void btnMent_Click(object sender, RoutedEventArgs e)
@@ -50,10 +54,10 @@ namespace Konyvtar
 				Tagsag = tagsag
 			};
 
-			File.AppendAllText(fajlNev, o + Environment.NewLine);
-
 			olvasok.Add(o);
-			lbOlvasok.Items.Add(o.Nev);
+			File.WriteAllLines(fajlNev, olvasok.Select(x => x.ToString()));
+			ListaFrissit();
+
 			tbUzenet.Text = "Sikeres regisztráció.";
 
 			tbNev.Clear();
@@ -75,9 +79,9 @@ namespace Konyvtar
 			if (torlendo != null)
 			{
 				olvasok.Remove(torlendo);
-				lbOlvasok.Items.Remove(nev);
 				File.WriteAllLines(fajlNev, olvasok.Select(o => o.ToString()));
-				tbUzenet.Text = "Sikeres törlés.";
+				ListaFrissit();
+				tbUzenet.Text = "Törlés sikeres.";
 			}
 		}
 	}

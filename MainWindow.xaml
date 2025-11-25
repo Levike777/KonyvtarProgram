@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Konyvtar.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Olvasó Regisztráció" Height="520" Width="520">
+        Title="Olvasó Regisztráció" Height="540" Width="520">
 	<Grid Margin="10">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
